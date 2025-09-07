@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  phone     String   @unique
+  name      String?
+  district  String?
+  language  String   @default("te")
+  createdAt DateTime @default(now())
+  queries   Query[]
+}
+
+model Query {
+  id          String   @id @default(uuid())
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+  text        String?
+  language    String
+  crop        String?
+  stage       String?
+  locationJson String?
+  answerTe    String?
+  answerEn    String?
+  sourcesJson String?
+  confidence  Float?
+  latencyMs   Float?
+  createdAt   DateTime @default(now())
+  feedback    Feedback[]
+}
+
+model Feedback {
+  id        String  @id @default(uuid())
+  query     Query   @relation(fields: [queryId], references: [id])
+  queryId   String
+  vote      String
+  comment   String?
+  createdAt DateTime @default(now())
+}
+
+model Ticket {
+  id             String   @id @default(uuid())
+  userId         String
+  queryId        String?
+  district       String
+  text           String
+  attachmentsJson String?
+  status         String   @default("open")
+  officerNote    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Document {
+  id         String   @id @default(uuid())
+  title      String
+  content    String
+  embedding  String?
+  tagsJson   String?
+  createdAt  DateTime @default(now())
+}
