@@ -1,0 +1,24 @@
+{
+  "info": {
+    "name": "Mana Rythu AI API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/health" }
+    },
+    {
+      "name": "Query",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Hello\",\n  \"language\": \"te\"\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/query"
+      }
+    }
+  ]
+}
