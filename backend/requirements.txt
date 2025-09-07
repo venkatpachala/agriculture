@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+sentence-transformers
+numpy
+pytest
+python-multipart
